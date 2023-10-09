@@ -1,7 +1,7 @@
 const Header = () => {
   return (
     <>
-      <div>Ini Header</div>
+      <div className="text-3xl font-bold underline">Ini Header</div>
     </>
   );
 };

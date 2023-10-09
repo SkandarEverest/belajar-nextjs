@@ -1,7 +1,7 @@
 const Footer = () => {
   return (
     <>
-      <div>Ini Footer</div>
+      <div className="text-3xl font-bold underline">Ini Footer</div>
     </>
   );
 };
