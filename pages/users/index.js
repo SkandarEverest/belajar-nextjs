@@ -11,7 +11,7 @@ export default function Users() {
   return (
     <>
       <Layout metaTitle="Users" metaDescription="Halaman utama dari menu users">
-        <p>Users</p>
+        <h1>Users</h1>
       </Layout>
     </>
   );

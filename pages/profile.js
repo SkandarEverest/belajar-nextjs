@@ -7,7 +7,7 @@ export default function Profile() {
         metaTitle="Profile"
         metaDescription="Semua informasi ini adalah seputar profile"
       >
-        <p>profil</p>
+        <h1>Profile</h1>
       </Layout>
     </>
   );
