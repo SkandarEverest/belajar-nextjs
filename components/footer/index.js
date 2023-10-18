@@ -1,7 +1,7 @@
 const Footer = () => {
   return (
     <>
-      <div className="text-3xl font-bold underline">Ini Footer</div>
+      <div style={{ backgroundColor: "#FF0000" }}>Ini Footer</div>
     </>
   );
 };

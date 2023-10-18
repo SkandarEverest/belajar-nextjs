@@ -1,29 +1,75 @@
 import dynamic from "next/dynamic";
-import Link from "next/link";
+import {
+  Box,
+  Flex,
+  Grid,
+  GridItem,
+  Card,
+  CardBody,
+  CardHeader,
+  CardFooter,
+  Heading,
+  Text,
+  Button,
+} from "@chakra-ui/react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 const LayoutComponent = dynamic(() => import("@/layout"));
 
-const Notes = ({ notes }) => {
-  console.log("Notes data => ", notes);
+export default function Notes() {
+  const router = useRouter();
+  const [notes, setNotes] = useState();
+
+  useEffect(() => {
+    async function fetchingData() {
+      const res = await fetch(
+        "https://paace-f178cafcae7b.nevacloud.io/api/notes"
+      );
+      const listNotes = await res.json();
+      setNotes(listNotes);
+    }
+    fetchingData();
+  }, []);
+
   return (
     <>
       <LayoutComponent metaTitle="Notes">
-        <p>
-          <h1>Notes</h1>
-        </p>
-        {notes.data.map((item) => (
-          <div>
-            <Link href={`/notes/${item.id}`}>{item.title}</Link>
-          </div>
-        ))}
+        <Box padding="5">
+          <Flex justifyContent="end">
+            <Button
+              colorScheme="blue"
+              onClick={() => router.push("/notes/add")}
+            >
+              Add Notes
+            </Button>
+          </Flex>
+          <Flex>
+            <Grid templateColumns="repeat(3, 1fr)" gap={5}>
+              {notes?.data?.map((item) => (
+                <GridItem>
+                  <Card>
+                    <CardHeader>
+                      <Heading>{item?.title}</Heading>
+                    </CardHeader>
+                    <CardBody>
+                      <Text>{item?.description}</Text>
+                    </CardBody>
+                    <CardFooter justify="space-between" flexWrap="wrap">
+                      <Button onClick={() => {}} flex="1" variant="ghost">
+                        Edit
+                      </Button>
+                      <Button onClick={() => {}} flex="1" colorScheme="red">
+                        Delete
+                      </Button>
+                    </CardFooter>
+                  </Card>
+                </GridItem>
+              ))}
+            </Grid>
+          </Flex>
+        </Box>
       </LayoutComponent>
     </>
   );
-};
-export default Notes;
-
-export async function getStaticProps() {
-  const res = await fetch("https://paace-f178cafcae7b.nevacloud.io/api/notes");
-  const notes = await res.json();
-  return { props: { notes }, revalidate: 10 };
 }

@@ -3,7 +3,7 @@ import Link from "next/link";
 const Header = () => {
   return (
     <>
-      <div className="text-3xl font-bold underline">
+      <div style={{ backgroundColor: "#FF0000" }}>
         <ul>
           <li>
             <Link href="/">Home</Link>
