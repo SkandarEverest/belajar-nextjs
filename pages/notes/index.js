@@ -16,13 +16,20 @@ import {
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useQueries } from "@/hooks/useQueries";
+import useSWR from "swr";
 
 const LayoutComponent = dynamic(() => import("@/layout"));
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 export default function Notes() {
-  const { data, isLoading } = useQueries({
-    prefixUrl: "https://paace-f178cafcae7b.nevacloud.io/api/notes",
-  });
+  // const { data, isLoading } = useQueries({
+  //   prefixUrl: "https://paace-f178cafcae7b.nevacloud.io/api/notes",
+  // });
+  const { data, isLoading } = useSWR(
+    "https://paace-f178cafcae7b.nevacloud.io/api/notes",
+    fetcher,
+    { revalidateOnFocus: true }
+  );
   const router = useRouter();
   const [notes, setNotes] = useState();
 
